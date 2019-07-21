@@ -2,7 +2,7 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 import pandas as pd
 
-dow_30 = pd.read_csv("/Users/Kevin/Desktop/Dow30.csv")
+SPX = pd.read_csv("/Users/Kevin/Desktop/SP500.csv")
 
 cols = ['Firm','Date','A/D', 'Owner','Shares','Holdings','Category','Security']
 transactions = []
@@ -12,7 +12,7 @@ class InsiderSpider(scrapy.Spider):
     name = "insider"
     start_urls = []
     
-    for cik in dow_30.iloc[:,2]:
+    for cik in SPX.iloc[:,2]:
         
         for x in range(0,5):
             
@@ -39,7 +39,7 @@ process.start()
 
 df = pd.DataFrame(transactions, columns=cols)
 df = df[df.Owner != "Reporting Owner"]
-df.to_csv('/Users/Kevin/Desktop/Dow_30_Insider_Activity.csv', index = None, header=False)
+df.to_csv('/Users/Kevin/Desktop/SP500_Insider_Activity.csv', index = None, header=False)
 
 
 
